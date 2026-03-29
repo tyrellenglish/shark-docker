@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shark Info</title>
+</head>
+<body>
+  <h1>Shark Info - TyrellEnglish</h1>
+
+  <p>Some sharks are known to be dangerous to humans, though many more are not.</p>
+
+  <h2>Add a Shark</h2>
+  <form action="/sharks" method="POST">
+    <label for="name">Shark Name:</label>
+    <input type="text" name="name" id="name" required>
+    <br><br>
+
+    <label for="character">Character:</label>
+    <input type="text" name="character" id="character" required>
+    <br><br>
+
+    <button type="submit">Add Shark</button>
+  </form>
+
+  <h2>Shark List</h2>
+  <% if (sharks.length === 0) { %>
+    <p>No sharks in database yet.</p>
+  <% } else { %>
+    <ul>
+      <% sharks.forEach(function(shark) { %>
+        <li><strong><%= shark.name %></strong> - <%= shark.character %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <p><a href="/">Back to Home</a></p>
+</body>
+</html>
