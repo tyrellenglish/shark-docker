@@ -1,14 +1,35 @@
-shark-docker/
-├── docker-compose.yml
-└── nodeapp/
-    ├── Dockerfile
-    ├── package.json
-    ├── app.js
-    ├── db.js
-    ├── models/
-    │   └── sharks.js
-    ├── routes/
-    │   └── sharks.js
-    └── views/
-        ├── index.ejs
-        └── TyrellEnglish
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: shark-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: sharkuser
+      MONGO_INITDB_ROOT_PASSWORD: sharkpass
+      MONGO_INITDB_DATABASE: sharkdb
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  nodeapp:
+    build: ./nodeapp
+    container_name: shark-nodeapp
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      PORT: 8080
+      DB_HOST: mongodb
+      DB_PORT: 27017
+      DB_NAME: sharkdb
+      DB_USER: sharkuser
+      DB_PASSWORD: sharkpass
+      DB_AUTH_SOURCE: admin
+    ports:
+      - "8080:8080"
+
+volumes:
+  mongo_data:
