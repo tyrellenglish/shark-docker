@@ -1,0 +1,14 @@
+{
+  "name": "sharkapp",
+  "version": "1.0.0",
+  "description": "Shark Info app with Node.js and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.12.1"
+  }
+}
